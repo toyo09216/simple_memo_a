@@ -27,26 +27,11 @@ class AppServiceProvider extends ServiceProvider
     {
         // 全てのメソッドが呼ばれる前に先に呼ばれるメソッド
         view()->composer('*', function($view){
-            $query_tag = \Request::query('tag');
-            // もしクエリパラメーターtagがあれば
-            if(!empty($query_tag)){
-                // タグで絞り込み
-                $memos = Memo::select('memos.*') // memosテーブルの全てを選択
-                ->leftjoin('memo_tags', 'memo_tags.memo_id', '=', 'memos.id')
-                ->where('memo_tags.tag_id', '=', $query_tag)
-                ->where('user_id', '=', \Auth::id()) //現在ログイン中のユーザーのものを
-                ->whereNull('deleted_at') //deleted_at がnullのものを
-                ->orderBy('updated_at', 'DESC') //ASC=昇順、DESC=降順
-                ->get(); //取得
-
-            }else{
-                // タグがなければ全て取得
-                $memos = Memo::select('memos.*') // memosテーブルの全てを選択
-                ->where('user_id', '=', \Auth::id()) //現在ログイン中のユーザーのものを
-                ->whereNull('deleted_at') //deleted_at がnullのものを
-                ->orderBy('updated_at', 'DESC') //ASC=昇順、DESC=降順
-                ->get(); //取得
-            }
+            // 自分のメモ取得はMemoモデルに任せる
+            // 自分で作ったメソッドはインスタンス化する必要がある
+            $memo_model = new Memo();
+            // メモ取得
+            $memos = $memo_model->getMyMemo();
 
             $tags = Tag::where('user_id', '=', \Auth::id())
             ->whereNull('deleted_at')
