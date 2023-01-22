@@ -39,6 +39,10 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $posts = $request->all();
+        //バリデーション view側(create.blade.php)の<textarea name="content"...が入力必須であるということ
+        $request->validate(['content' => 'required']);
+
+
         // ここからトランザクション開始
         DB::transaction(function() use($posts) {
             // メモIDをインサートして取得
@@ -94,6 +98,9 @@ class HomeController extends Controller
     public function update(Request $request)
     {
         $posts = $request->all();
+        //バリデーション view側(create.blade.php)の<textarea name="content"...が入力必須であるということ
+        $request->validate(['content' => 'required']);
+
 
         // トランザクションスタート
         DB::transaction(function() use($posts){
