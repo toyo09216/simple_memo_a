@@ -9,3 +9,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@media screen and (max-width:768px){
+  /* もし最大画面幅が768px未満ならheightをautoにする */
+  .my-card-body{
+    height: auto;
+    max-height: 50vh;
+  }
+}
