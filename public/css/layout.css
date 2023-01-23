@@ -1,0 +1,11 @@
+.my-card-body{
+  /* 全体の高さからヘッダーの高さを引く */
+  height: calc(100vh - (54px + 47px));
+}
+
+/* ellipsisを当てると省略して一行の形になる */
+.ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -19,7 +19,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/layout.css">
     
 </head>
 <body>
@@ -84,12 +85,12 @@
                 <div class="col-md-2 p-0">
                     <div class="card">
                         <div class="card-header">タグ一覧</div>
-                        <div class="card-body">
-                            <a href="/" class="card-text d-block">
+                        <div class="card-body my-card-body">
+                            <a href="/" class="card-text d-block mb-2">
                                 全て表示
                             </a>
                             @foreach ($tags as $tag)
-                            <a href="/?tag={{ $tag['id'] }}" class="card-text d-block">
+                            <a href="/?tag={{ $tag['id'] }}" class="card-text d-block ellipsis mb-2">
                                 {{ $tag['name'] }}
                             </a>
                             @endforeach
@@ -98,10 +99,10 @@
                 </div>
                 <div class="col-md-4 p-0">
                     <div class="card">
-                        <div class="card-header">メモ一覧</div>
-                        <div class="card-body">
+                        <div class="card-header d-flex justify-content-between">メモ一覧<a href="{{ route('home') }}"><i class="fa-regular fa-circle-plus"></i></a></div>
+                        <div class="card-body my-card-body">
                             @foreach ($memos as $memo)
-                            <a href="/edit/{{ $memo['id'] }}" class="card-text d-block">
+                            <a href="/edit/{{ $memo['id'] }}" class="card-text d-block ellipsis mb-2">
                                 {{ $memo['content'] }}
                             </a>
                             @endforeach
@@ -109,7 +110,6 @@
                     </div>
                 </div>
                 <div class="col-md-6 p-0">
-                    右カラム
                     @yield('content')
                 </div>
             </div>
